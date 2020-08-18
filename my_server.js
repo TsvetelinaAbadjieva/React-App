@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
-const cors =require('cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
-const PORT =process.env.PORT ||5000;
+const PORT = process.env.PORT || 5000;
+const request = require('request');
 
 app.use(express.json());
 const corsOptions = {
@@ -15,8 +16,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-const data = [
-    {
+const data = [{
         "uuid": "099bff4b-a6f0-3969-b063-825405b0e0d4",
         "company": "Dach, Towne and Baumbach",
         "bio": "<pre>Cum nihil corrupti debitis reprehenderit maiores. Dolorum tempora molestiae debitis perspiciatis est. Perspiciatis rem iusto rerum quos. Nesciunt nihil velit quis quidem numquam.",
@@ -8017,10 +8017,33 @@ const data = [
         "avatar": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADsklEQVRYR63XdwincxwH8NeZGWXGnRWZiSJ/kGRlJMqI0+FynSI7skpmnGzJzChd54pkZkUJ2WVE6cqR7BHK3r2v76Pnfvc83+e5zqd+f/z6fcb795nv7xTjZXUciL2xAzbHGvgHP+ADvIln8QR+GuN6ygilzXAOZuIPPIc38CG+L/ZrYgvshD2xHO7BVfi4FqMGYGWcj3PxMm7A4/h9AHTsDsKZBdAcXFHAL2HaB2ATPIB1cHJJ6YhkLaYS3wFyEz7D4fh00kkXgG3wDF7HrFLfLrv0wMblh/fwVQ/CtTAX22NfLGjrTQLIP38JT+IE/DXhNPqn4qxW8Kj8jWtxIX7tALIC7ir9sWs7E20Aqd2L+KSkazJ4/N6Mkyq1+BkX4+oeEA9hbezR9EQbwKU4Bjv2pD0dnu4fIweULE7qJvhbuB2X58cGQEbtfRxSabh08nljouNeHN2jmxjzsWWy3QC4FduW1PTFuL+UZgyG17Bzj2Jips/S5KflSzbcFyX9qVGfPFgyNAbAq9ilojgdd2BqAByJ27D+wJK5E8eNiY78kUMruquUsZ0ZAGmI9QYM4uvsslrHYLikTENNN1t1YQAkXY80XVmx2A9PjYmO/fH0gG6mbq8A+CbNUDq3ZrM0JUhJTxwAcGxuRADkwh1cDk3NJqU6fmQGsv+zMWuSmPMDINcts5ma1CSLKCXIgarJ19gH7wzoJea8AIjB6SNKEH/Ry1muSa7nLSMylUM3JwBeKf8+TTEkOVYLsXyP4p/YtOvsduhfht0DIFtwg9IHQwDy+3U4o0fx+kJExvjJxV0QACEKOZXZBb+NsEwPZHK6JMusjxe09VctpZ8RAKuVVZyahAUNSS7atz1KU/HlkAPMKH0yrTlGGZuc4d0Ky635SI1DSLtk60nG06GUmDlWL6RcDYA0V6jSEXi0Ej3MJmz3qB6d+8pRy27pk5Q8PsKiP28TktCpHJtw/u8mrBM4cxudcLuavIvcglzPSVa1Lt7GjbgyTtoAVsTzpb4JlpHKdISCzca0EbVtq4QB311qnXMf/48hlzCPm/hfDEC+b1jIQuoTo1MQrrgsEpKa5ZXeCUkJKY3vRdJFy7cqr590+7IGb+JkvDO6IaN5wv0nfQ+TZOJhbPc/gPilENHD2v+8loHmt9QsJPSCMporLWUdfix1v6i8GRbVfFLGPE43KkDSiAEVm9otSIzUPZzvmvIs68U+BkBjnO4N08knhDNNlS0ayYPko/KwCRPKp+uFtASQfwFMNb0ytvWaBAAAAABJRU5ErkJggg=="
     }
 ];
+const username = "hard";
+const password = "hard";
+var dataList = [];
+const getData = () => {
+        let options = {
+            "Method": "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Basic aGFyZDpoYXJk"
+            }
+        }
 
-app.get('/list',(req,res,next)=>{
-   return res.status(200).send(data);
+        request("http://hiring.rewardgateway.net/list", options, function (error, response, body) {
+                if(error) reject(error)
+                else{
+                    response = JSON.parse(body);
+                    console.log('Here response', response);
+                    dataList = response;
+                }
+        });
+}
+getData();
+
+app.get('/list',  (req, res, next) => {
+    res.status(200).send(dataList);
+    next();
 })
-app.listen(PORT,()=>{
-    console.log('Server is listening on '+PORT)
+app.listen(PORT, () => {
+    console.log('Server is listening on ' + PORT)
 })

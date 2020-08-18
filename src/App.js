@@ -6,28 +6,48 @@ import ListEmployee from './components/ListEmployee';
 import http from './http/http_hook';
 import BASE_URL from './constants/constant';
 import Pagination from './components/Pagination';
+import Search from './components/Search';
 
 
 function App() {
-  const username ='hard';
-  const password ='hard';
   const perPage=20;
   const[employees, setEmployees] = useState([]);
   const[numberRows,setNumberRows] = useState(0);
   const[currentPage,setCurrentPage] = useState(1);
+  const[search,setSearch] = useState('');
+  const[filteredEmployees,setFilteredEmployees] = useState([]);
 
-  useEffect(()=>{getEmployees()},[]);
+  useEffect(()=>{getEmployees()},[search,filteredEmployees]);
 
   function getEmployees(){
+    if(search){
+      filterEmplyeesByQuery();
+      setEmployees(filteredEmployees);
+      setCurrentPage(1);
+      return
+    }
     http(BASE_URL+'/list')
-    // .then(response=>response.json())
-    .then(data=>{ 
-        setNumberRows(data.data.length)
-        setEmployees(data.data);
-        console.log('LENGTH',data.length)
-    })
-    .catch(error=>console.log(error))
+      .then(res=>{ 
+          setNumberRows(res.data.length)
+          setFilteredEmployees(res.data);
+          setEmployees(res.data);
+      })
+      .catch(error=>{
+          console.log('Error',error)
+      })
 }
+const filterEmplyeesByQuery=()=>{
+  let foundItems = findByQuery();
+  let filtered = employees.filter(employee=>foundItems.includes(employee.uuid));
+  setFilteredEmployees(filtered);
+  setNumberRows(filtered.length);
+}
+const findByQuery = () =>{
+  let keys = Object.keys(localStorage);
+  let foundItems = keys.filter(key=>JSON.parse(localStorage.getItem(key)).label.toLowerCase()==search.toLowerCase())
+  return foundItems;
+}
+
 const paginate = (page) => setCurrentPage(page);
 let fromItem =(currentPage-1)*perPage;
 let toItem = fromItem + perPage;
@@ -39,6 +59,7 @@ console.log(currentEmployees)
     <div className="App">
       <header className="App-header">Employee List</header>
       <Pagination perPage={perPage} numberRows={numberRows} paginate={paginate}/>
+      <Search setSearch={setSearch}/>
       <ListEmployee employees={currentEmployees} />
     </div>
   );

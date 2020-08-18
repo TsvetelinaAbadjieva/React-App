@@ -43,7 +43,7 @@
     font-weight:bolder;
   }
   .employee-item .avatar img{
-    width:62px;
+    width:10em;
     height:auto;
     object-fit: cover;
     -o-object-fit: cover;
@@ -58,8 +58,8 @@
     margin-left:15px;
   }
   .preview{
-    width:500px;
-    height: 500px;
+    width:25em;
+    height: 25em;
     transition:ease-in-out 1s linear;
     background-color: black;
     z-index:1000;

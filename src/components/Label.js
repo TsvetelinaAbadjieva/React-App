@@ -5,8 +5,7 @@ const Label = (props) => {
     const[label,setLabel]=useState('');
     const handleClick=()=>{
         props.setLabel(label);
-       const input = document.getElementsByTagName('input')[0];
-       input.value='';
+        setLabel('');
     }
     return(
     <div className="employee-label-input">
