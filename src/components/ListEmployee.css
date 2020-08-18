@@ -1,0 +1,15 @@
+.employee-list-wrapper{
+    position:relative;
+    width:100%;
+    margin:0 auto;
+  }
+  .employee-container{
+    width: 90%;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    align-content: center;
+    background-color: grey;
+    margin:0 auto;
+  }
+  

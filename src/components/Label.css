@@ -1,0 +1,26 @@
+.employee-label-input{
+    display:flex;
+    align-content: center;
+    align-items: center;
+    flex-direction:row;
+    width:100%;
+    vertical-align: -webkit-baseline-middle;
+}
+.employee-label-input input{
+    width:200px;
+    height: 30px;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border:1px solid grey;
+    /* border-radius:5px; */
+}
+.employee-label-input button{
+    width:180px;
+    height: 35px;
+    border-radius:0 5px 5px 0;
+    color:white;
+    background-color: rgb(18, 99, 250);
+    padding:3px;
+    text-align: center;
+}

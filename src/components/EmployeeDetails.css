@@ -1,0 +1,111 @@
+.employee-item{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: white;
+    padding:5%;
+    margin:10px;
+    height: 180px;
+    border-radius:8px 8px 8px 8px;
+    position:relative;
+    font-weight:lighter;
+  }
+  .employee-item .avatar, .employee-item .controls{
+    width:15%;
+    display:inline-block;
+  }
+  .employee-item .controls div.label{
+    height: 50;
+    width:100%;
+    margin-bottom:15px;
+    color:#33093ec2;
+    /* background-color: #33093ec2; */
+    font-size: 18px;
+    font-weight: bold;
+    padding:5px;
+    border:0.5px solid grey;
+    /* -webkit-box-shadow: -1px 2px 8px 0px rgba(53,54,52,1);
+    -moz-box-shadow: -1px 2px 8px 0px rgba(53,54,52,1);
+    box-shadow: -1px 2px 8px 0px rgba(53,54,52,1); */
+    text-transform: uppercase;
+    box-sizing: border-box;
+    user-select: none;
+  }
+  .employee-item .info{
+    justify-content:flex-start ;
+    flex-wrap:wrap;
+    width:55%;
+    user-select: none;
+  }
+  .employe-item .info:first-child{
+    font-weight:bolder;
+  }
+  .employee-item .avatar img{
+    width:62px;
+    height:auto;
+    object-fit: cover;
+    -o-object-fit: cover;
+    cursor: pointer;
+    -webkit-box-shadow: -1px 2px 8px 0px rgba(53,54,52,1);
+    -moz-box-shadow: -1px 2px 8px 0px rgba(53,54,52,1);
+    box-shadow: -1px 2px 8px 0px rgba(53,54,52,1);
+
+  }
+  .employee-item .controls{
+    width:20%;
+    margin-left:15px;
+  }
+  .preview{
+    width:500px;
+    height: 500px;
+    transition:ease-in-out 1s linear;
+    background-color: black;
+    z-index:1000;
+    position:fixed;
+    margin:0 auto;
+    overflow:hidden;
+    top:25%;
+    left:25%;
+    bottom:25%;
+    right:25%;
+    object-fit: cover;
+    -webkit-box-shadow: -1px 2px 8px 0px rgba(53,54,52,1);
+    -moz-box-shadow: -1px 2px 8px 0px rgba(53,54,52,1);
+    box-shadow: -1px 2px 8px 0px rgba(53,54,52,1);
+    cursor: pointer;
+  }
+  
+  @media all and (max-width:780px){
+    .employee-container{
+      width:95%;
+    }
+    .employee-item{
+      flex-direction:column;
+      height: auto;
+      min-height: 300px;
+      padding:5%;
+    }
+    .employee-item .info{
+      overflow:scroll;
+    }
+    .employee-item .avatar, .employee-item .info{
+      width:100%;
+      margin:10px;
+    }
+    .preview{
+      width: 95%;
+      height:auto;
+      left:0;
+      right:0;
+      top:0;
+      bottom:0;
+      border-radius:8px;
+      box-shadow: cornflowerblue;
+    }
+    .employee-item .controls{
+      margin:0;
+      width:100%;
+    }
+  }
