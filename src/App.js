@@ -1,12 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import ListEmployee from './components/ListEmployee';
 import http from './http/http_hook';
 import BASE_URL from './constants/constant';
 import Pagination from './components/Pagination';
 import Search from './components/Search';
+import {useLatest} from 'react-delta';
 
 
 function App() {
@@ -16,11 +17,17 @@ function App() {
   const[currentPage,setCurrentPage] = useState(1);
   const[search,setSearch] = useState('');
   const[filteredEmployees,setFilteredEmployees] = useState([]);
-
-  useEffect(()=>{getEmployees()},[search,filteredEmployees]);
+  const dataRef =  useLatest({search,currentPage});
+  useEffect(()=>{getEmployees()},[currentPage]);
+  useEffect(()=> {
+    filterEmplyeesByQuery();
+    setEmployees(filteredEmployees);
+    setCurrentPage(1);
+  },[search,filteredEmployees])
 
   function getEmployees(){
     if(search){
+      setSearch(search);
       filterEmplyeesByQuery();
       setEmployees(filteredEmployees);
       setCurrentPage(1);
