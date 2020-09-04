@@ -7,16 +7,16 @@
     vertical-align: -webkit-baseline-middle;
 }
 .employee-label-input input{
-    width:200px;
+    width:70%;
     height: 30px;
-    border-top:none;
+    /* border-top:none;
     border-left:none;
-    border-right:none;
+    border-right:none; */
     border:1px solid grey;
     /* border-radius:5px; */
 }
 .employee-label-input button{
-    width:180px;
+    width:30%;
     height: 35px;
     border-radius:0 5px 5px 0;
     color:white;

@@ -7,6 +7,7 @@ const Search = (props) => {
         e.preventDefault();
         props.setSearch(search.trim())
         setSearch('');
+        props.paginate(1);
     }
     return(
     <div className="employee-label-input">
